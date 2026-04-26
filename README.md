@@ -4,7 +4,7 @@
 
 # Dolby Atmos support for AOSP-based ROMs
 
-**𝚟𝚎𝚗𝚍𝚘𝚛/𝚕𝚞𝚗𝚊𝚛𝚒𝚜/𝚍𝚘𝚕𝚋𝚢**
+**��𝚌𝚔𝚊𝚐�𝚎�/���𝚜/�𝚞𝚗𝚊𝚛𝚒𝚜�𝚘𝚕𝚋𝚢**
 
 ![Android](https://img.shields.io/badge/Android-AOSP-3DDC84?style=flat-square&logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)
@@ -34,13 +34,13 @@ This repository provides Dolby Atmos blobs and the **LunarisDolby** app for AOSP
 ### 1. Clone the repository
 
 ```bash
-git clone <this-repo> vendor/lunaris/dolby
+git clone <this-repo> packages/apps/LunarisDolby
 ```
 
 Or add to your local manifest:
 
 ```xml
-<project path="vendor/lunaris/dolby" name="your-org/vendor_lunaris_dolby" remote="github" />
+<project path="packages/apps/LunarisDolby" name="your-org/packages_apps_LunarisDolby" remote="github" />
 ```
 
 ---
@@ -48,7 +48,7 @@ Or add to your local manifest:
 ### 2. Device makefile — `device.mk`
 
 ```makefile
-$(call inherit-product, vendor/lunaris/dolby/dolby.mk)
+$(call inherit-product, packages/apps/LunarisDolby/dolby.mk)
 ```
 
 ---
@@ -56,7 +56,7 @@ $(call inherit-product, vendor/lunaris/dolby/dolby.mk)
 ### 3. Board config — `BoardConfig.mk`
 
 ```makefile
-include vendor/lunaris/dolby/BoardConfigDolby.mk
+include packages/apps/LunarisDolby/BoardConfigDolby.mk
 ```
 
 > **⚠️ Important:** Make sure `DEVICE_MANIFEST_FILE` and `DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE` use `+=` not `:=` in your device tree to avoid overriding the Dolby VINTF entries.
@@ -67,10 +67,10 @@ include vendor/lunaris/dolby/BoardConfigDolby.mk
 
 ```makefile
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    vendor/lunaris/dolby/vintf/dolby_framework_compatibility_matrix.xml
+    packages/apps/LunarisDolby/vintf/dolby_framework_compatibility_matrix.xml
 
 DEVICE_MANIFEST_FILE += \
-    vendor/lunaris/dolby/vintf/dolby_manifest.xml
+    packages/apps/LunarisDolby/vintf/dolby_manifest.xml
 ```
 
 ---

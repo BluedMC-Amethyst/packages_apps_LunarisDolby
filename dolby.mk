@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DOLBY_PATH := vendor/lunaris/dolby
+DOLBY_PATH := packages/apps/LunarisDolby
 
 # Soong Namespace
 PRODUCT_SOONG_NAMESPACES += \
