@@ -1,72 +1,86 @@
 #
-# SPDX-FileCopyrightText: The LineageOS Project
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (C) 2022 FlamingoOS Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
+# Dolby path
 DOLBY_PATH := packages/apps/LunarisDolby
 
 # Soong Namespace
 PRODUCT_SOONG_NAMESPACES += \
-    $(DOLBY_PATH)
+   $(DOLBY_PATH)
 
-# Media codecs
-PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/media/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
+# SEPolicy
+BOARD_VENDOR_SEPOLICY_DIRS += $(DOLBY_PATH)/sepolicy/vendor
 
-# DAX default configs
-PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/proprietary/odm/etc/dolby/multimedia_dolby_dax_default.xml:$(TARGET_COPY_OUT_ODM)/etc/dolby/multimedia_dolby_dax_default.xml
+# HIDL
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DOLBY_PATH)/configs/vintf/dolby_framework_matrix.xml
+DEVICE_MANIFEST_FILE += \
+    $(DOLBY_PATH)/configs/vintf/vendor.dolby.hardware.dms@2.0-service.xml \
+    $(DOLBY_PATH)/configs/vintf/vendor.dolby.media.c2@1.0-service.xml
 
-# LunarisDolby app
+# Build codec2 packages
 PRODUCT_PACKAGES += \
-    LunarisDolby \
-    XiaomiDolbyResCommon
+    libavservices_minijail.vendor \
+    libcodec2_hidl@1.2.vendor \
+    libstagefright_foundation-v33 \
+    libcodec2_soft_common.vendor
 
-# Permissions
+# Configs
 PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/configs/permissions/privapp-permissions-dolby.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-dolby.xml
+    $(DOLBY_PATH)/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
+    $(DOLBY_PATH)/configs/media/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
 
-# Init script
+# Dolby
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.dolby.dax.version=DAX3_3.7.0.8_r1 \
+    ro.audio.spatializer_enabled=true \
+    ro.vendor.audio.dolby.dax.support=true \
+    ro.vendor.audio.dolby.surround.enable=true \
+    ro.audio.spatializer_transaural_enabled_default=false \
+    vendor.audio.dolby.ds2.enabled=false \
+    vendor.audio.dolby.ds2.hardbypass=false
+
+# LunarisDolby
+PRODUCT_PACKAGES += \
+    LunarisDolby
+
+# Init
 PRODUCT_PACKAGES += \
     init.dolby.rc
 
-# ODM HAL blobs
+# Proprietary-files
 PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/proprietary/odm/etc/init/vendor.dolby.media.c2@1.0-service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.dolby.media.c2@1.0-service.rc \
-    $(DOLBY_PATH)/proprietary/odm/etc/init/vendor.dolby_sp.hardware.dmssp@2.0-service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.dolby_sp.hardware.dmssp@2.0-service.rc \
-    $(DOLBY_PATH)/proprietary/odm/etc/init/vendor.dolby_v3_6.hardware.dms360@2.0-service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.dolby_v3_6.hardware.dms360@2.0-service.rc
+    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.hardware.dms@2.0-service.rc \
+    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.media.c2@1.0-service.rc
 
 PRODUCT_PACKAGES += \
-    libdapparamstorage_v3_6 \
-    libdeccfg_v3_6 \
-    libdlbdsservice_v3_6 \
-    vendor.dolby_v3_6.hardware.dms360@2.0 \
-    libstagefright_soft_ddpdec \
-    libhwdap_v3_6 \
-    libswdap_v3_6 \
-    libcodec2_hidl@1.0_sp \
-    libcodec2_hidl_plugin_sp \
-    libcodec2_soft_ac4dec_sp \
-    libcodec2_soft_common_sp \
-    libcodec2_soft_ddpdec_sp \
-    libcodec2_store_dolby_sp \
-    libcodec2_vndk_sp \
-    libdapparamstorage_sp \
-    libdeccfg_sp \
-    libdlbdsservice_sp \
-    libui_sp \
-    vendor.dolby_sp.hardware.dmssp@2.0-impl \
-    vendor.dolby_sp.hardware.dmssp@2.0 \
-    vendor.dolby_v3_6.hardware.dms360@2.0-impl \
-    manifest_dax_dolby_v3_6.xml \
-    vendor.dolby.hardware.dms.xml \
-    vendor.dolby_sp.hardware.dmssp@2.0-service \
-    vendor.dolby_sp.media.c2@1.0-service \
-    vendor.dolby_v3_6.hardware.dms360@2.0-service
-
-# VINTF
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    $(DOLBY_PATH)/vintf/dolby_framework_compatibility_matrix.xml
-
-DEVICE_MANIFEST_FILE += \
-    $(DOLBY_PATH)/vintf/dolby_manifest.xml
+    vendor.dolby.hardware.dms@2.0-impl \
+    vendor.dolby.hardware.dms@2.0 \
+    vendor.dolby.hardware.dms@2.0-service \
+    vendor.dolby.media.c2@1.0-service \
+    libcodec2_soft_ac4dec \
+    libcodec2_soft_ddpdec \
+    libcodec2_soft_dolby \
+    libcodec2_store_dolby \
+    libdapparamstorage \
+    libdeccfg \
+    libdlbdsservice \
+    libdlbpreg \
+    libspatializerparamstorage \
+    libdlbvol \
+    libswdap \
+    libswgamedap \
+    libswspatializer \
+    libswvqe 
