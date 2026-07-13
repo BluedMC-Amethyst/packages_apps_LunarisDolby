@@ -13,6 +13,9 @@
 // limitations under the License.
 
 soong_namespace {
+	imports: [
+        "vendor/xiaomi/amethyst"
+    ],
 }
 
 cc_prebuilt_library_shared {
@@ -42,23 +45,6 @@ cc_prebuilt_library_shared {
 		android_arm64: {
 			srcs: ["proprietary/vendor/lib64/libcodec2_store_dolby.so"],
 			shared_libs: ["libbase", "liblog", "libcodec2", "libcodec2_vndk", "libdmabufheap", "libutils", "libc++", "libc", "libm", "libdl", ],
-		},
-	},
-	compile_multilib: "64",
-	prefer: true,
-	soc_specific: true,
-}
-
-cc_prebuilt_library_shared {
-	name: "libdapparamstorage",
-	owner: "xiaomi",
-	strip: {
-		none: true,
-	},
-	target: {
-		android_arm64: {
-			srcs: ["proprietary/vendor/lib64/libdapparamstorage.so"],
-			shared_libs: ["libcutils", "libutils", "liblog", "libc++", "libc", "libm", "libdl", ],
 		},
 	},
 	compile_multilib: "64",
@@ -115,23 +101,6 @@ cc_prebuilt_library_shared {
 	compile_multilib: "64",
 	prefer: true,
 	soc_specific: true,
-}
-
-cc_prebuilt_library_shared {
-    name: "libspatializerparamstorage",
-    owner: "xiaomi",
-    strip: {
-        none: true,
-    },
-    target: {
-        android_arm64: {
-            srcs: ["proprietary/vendor/lib64/libspatializerparamstorage.so"],
-            shared_libs: ["libcutils", "libutils", "liblog", "libxml2", "libdapparamstorage", "libc++", "libc", "libm", "libdl"],
-        },
-    },
-    compile_multilib: "64",
-    prefer: true,
-    soc_specific: true,
 }
 
 cc_prebuilt_library_shared {
