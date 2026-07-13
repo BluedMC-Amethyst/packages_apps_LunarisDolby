@@ -74,9 +74,11 @@ PRODUCT_PACKAGES += \
     libcodec2_soft_ddpdec \
     libcodec2_soft_dolby \
     libcodec2_store_dolby \
+    libdapparamstorage \
     libdeccfg \
     libdlbdsservice \
     libdlbpreg \
+    libspatializerparamstorage \
     libdlbvol \
     libswdap \
     libswgamedap \
