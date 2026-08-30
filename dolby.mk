@@ -34,31 +34,29 @@ DEVICE_MANIFEST_FILE += \
 PRODUCT_PACKAGES += \
     libavservices_minijail.vendor \
     libcodec2_hidl@1.2.vendor \
-    libstagefright_foundation-v33 \
     libcodec2_soft_common.vendor
 
 # Configs
 PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
+    $(DOLBY_PATH)/configs/dax/dax-default-spatializer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default-spatializer.xml \
+    $(DOLBY_PATH)/configs/dax/odm/dax-default.xml:$(TARGET_COPY_OUT_ODM)/etc/dolby/dax-default.xml \
+    $(DOLBY_PATH)/configs/dax/odm/dax-default-spatializer.xml:$(TARGET_COPY_OUT_ODM)/etc/dolby/dax-default-spatializer.xml \
     $(DOLBY_PATH)/configs/media/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
 
 # Dolby
 PRODUCT_VENDOR_PROPERTIES += \
-    ro.vendor.dolby.dax.version=DAX3_3.7.0.8_r1 \
+    ro.vendor.dolby.dax.version=DAX3_3.8.5.20_r1 \
+    ro.vendor.audio.dolby.dax.version=DAX3_3.8.5.20_r1 \
     ro.audio.spatializer_enabled=true \
     ro.vendor.audio.dolby.dax.support=true \
     ro.vendor.audio.dolby.surround.enable=true \
-    ro.audio.spatializer_transaural_enabled_default=false \
-    vendor.audio.dolby.ds2.enabled=false \
-    vendor.audio.dolby.ds2.hardbypass=false
+    persist.vendor.audio.dolby.disable=false \
+    vendor.audio.dolby.control.support=true
 
 # LunarisDolby
 PRODUCT_PACKAGES += \
     LunarisDolby
-
-# Init
-PRODUCT_PACKAGES += \
-    init.dolby.rc
 
 # Proprietary-files
 PRODUCT_COPY_FILES += \
@@ -72,7 +70,6 @@ PRODUCT_PACKAGES += \
     vendor.dolby.media.c2@1.0-service \
     libcodec2_soft_ac4dec \
     libcodec2_soft_ddpdec \
-    libcodec2_soft_dolby \
     libcodec2_store_dolby \
     libdapparamstorage \
     libdeccfg \
@@ -80,7 +77,7 @@ PRODUCT_PACKAGES += \
     libdlbpreg \
     libspatializerparamstorage \
     libdlbvol \
-    libswdap \
+    libhwdap \
     libswgamedap \
     libswspatializer \
-    libswvqe 
+    libswvqe
